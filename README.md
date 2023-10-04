@@ -33,7 +33,7 @@ Backlog:
     - Only allow access to data for vehicles associated
       w/ logged-in User's 'storename'.
 
-# About
+__About__
 Paragraph 1
 The current process for logging new acquisitions leaves a lot to be desired:
   - Fill out a form in a word doc.
