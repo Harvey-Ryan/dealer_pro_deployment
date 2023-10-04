@@ -43,7 +43,7 @@ The current process for logging new acquisitions leaves a lot to be desired:
   
   This project aims to streamline the process and start aggregating data for a better understanding  
   of future transactions through the tracking of profits and losses on both Retail & Wholesale vehicles  
-  by being able to dial in on specific parameters such as Mileage, Makes, & Models.  
+  by being able to dial in on specific parameters such as Mileage, Make, & Model.  
   ***  
   
 Additional targets for future expansion to the project include:
