@@ -33,17 +33,17 @@ Backlog:
     - Only allow access to data for vehicles associated
       w/ logged-in User's 'storename'.
 
-__About__
+__About__  
 The current process for logging new acquisitions leaves a lot to be desired:
   - Fill out a form in a word doc.
   - Print the form.
   - Fax the form.
   - Receive handwritten notes on the forms via Fax the following morning.  
-
-This project aims to streamline the process and start aggregating data for a better understanding  
-of future transactions through the tracking of profits and losses on both Retail & Wholesale vehicles  
-by being able to dial in on specific parameters such as Mileage, Makes, & Models.  
-
+  
+  This project aims to streamline the process and start aggregating data for a better understanding  
+  of future transactions through the tracking of profits and losses on both Retail & Wholesale vehicles  
+  by being able to dial in on specific parameters such as Mileage, Makes, & Models.  
+  
 Additional targets for future expansion to the project include:
   - Tradesheets to be queued and batched out as PDF files After-Hours.
   - Rooftop-specific logins with filtered Rooftop-specific results.
