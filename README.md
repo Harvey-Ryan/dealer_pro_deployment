@@ -22,9 +22,8 @@ Completed:
 Backlog:
 
   - Re-work /tradesheet && /tradesheet/id to be more user-friendly
-
-  - Create a printer-friendly display of a single vehicle object
-    to replace the current create/edit pages to appease Frank.
+    - Create a printer-friendly display of a single vehicle object
+      to replace the current create/edit pages to appease Frank.
 
   - Re-work UI and CSS with a more polished presentation
 
