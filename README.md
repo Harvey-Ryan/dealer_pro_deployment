@@ -22,7 +22,7 @@ Completed:
 Backlog:
 
   - Re-work /tradesheet && /tradesheet/id to be more user-friendly
-    - Create a printer-friendly display of a single vehicle object
+    - Create a printer-friendly display of a single vehicle object  
       to replace the current create/edit pages to appease Frank.
 
   - Re-work UI and CSS with a more polished presentation
@@ -32,3 +32,24 @@ Backlog:
     - Store and re-use User's 'storename' on /tradesheet.
     - Only allow access to data for vehicles associated
       w/ logged-in User's 'storename'.
+
+# About
+Paragraph 1
+The current process for logging new acquisitions leaves a lot to be desired:
+  - Fill out a form in a word doc.
+  - Print the form.
+  - Fax the form.
+  - Receive handwritten notes on the forms via Fax the following morning.
+
+Paragraph 2
+This project aims to streamline the process and start aggregating data for a better understanding  
+of future transactions through the tracking of profits and losses on both Retail & Wholesale vehicles  
+by being able to dial in on specific parameters such as Mileage, Makes, & Models.
+
+Paragraph 3
+Additional targets for future expansion to the project include:
+  - Tradesheets to be queued and batched out as PDF files After-Hours.
+  - Rooftop-specific logins with filtered Rooftop-specific results.
+  - Various metrics actively tracked in real-time on the Dashboard with
+    the ability to customize data parameters.
+  - NHTSA API functionality to pre-fill forms. (Comming Soon!)
