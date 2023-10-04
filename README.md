@@ -1,13 +1,35 @@
-# React + Vite
+# Dealer Pro
+Built using MERN:
+- DB hosted on Atlas
+- Vite for React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Completed:
+  - Deployed on AWS
+    - http://3.144.47.37/dashboard
 
-Currently, two official plugins are available:
+  - Create Tradesheets: /tradesheet
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  - Edit Tradesheets: /tradesheet/id
 
+  - Display All Vehicles: /dashboard
 
-# dealer-pro
+  - Delete Tradesheets
 
-This web App creates and tracks data related to the intake of used vehicles in a dealership setting.
+  - DB hosted w/ Atlas
+
+  - EC2 instance up and running
+
+Backlog:
+
+  - Re-work /tradesheet && /tradesheet/id to be more user-friendly
+
+  - Create a printer-friendly display of a single vehicle object
+    to replace the current create/edit pages to appease Frank.
+
+  - Re-work UI and CSS with a more polished presentation
+
+  - Login/Reg:
+    - Ensure user is logged in on all routes.
+    - Store and re-use User's 'storename' on /tradesheet.
+    - Only allow access to data for vehicles associated
+      w/ logged-in User's 'storename'.
