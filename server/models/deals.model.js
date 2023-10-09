@@ -3,9 +3,6 @@
 const mongoose = require('mongoose');
 
 const dealSchema = new mongoose.Schema({
-    stocknumber: {
-
-    },
     newUsed: {
         type: String,
         required: [true, 'New (N) or Used (U) required.'],
@@ -51,7 +48,7 @@ const dealSchema = new mongoose.Schema({
     holdBack: {
         type: Number,
     },
-    financeReserve:{
+    financeReserve: {
         type: Number,
     },
     warrantyGap: {
@@ -60,25 +57,13 @@ const dealSchema = new mongoose.Schema({
     idTheftEtch: {
         type: Number,
     },
-    docFee:{
+    docFee: {
         type: Number,
     },
     commission: {
         type: Number,
         required: [true, 'Commission is required.'],
         minimum: [1, 'Commission must be at least 1.'],
-    },
-    tradeMY: {
-        type: Number,
-    },
-    tradeMake: {
-        type: String,
-    },
-    tradeModel: {
-        type: String,
-    },
-    tradeMiles: {
-        type: Number,
     },
     purchaseType: {
         type: String,
@@ -90,6 +75,12 @@ const dealSchema = new mongoose.Schema({
         required: [true, 'Deal Manager is required.'],
         minLength: [3, 'Deal Manager must be at least 3 characters long.'],
     },
+    tradeInVehicles: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vehicle',
+        },
+    ],
 
 }, { timestamps: true });
 

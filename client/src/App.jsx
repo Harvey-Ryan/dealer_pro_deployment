@@ -8,6 +8,8 @@ import CreateTradesheet from './components/Tradesheet'
 import EditTradesheet from './components/EditTradesheet'
 import Layout from './components/Layout'
 import NotFound from './components/NotFound'
+import AddTradeModal from './components/AddTradeModal'
+import CreateDeal from './components/NewDeal'
 
 
 
@@ -22,6 +24,8 @@ function App() {
               <Route path="dashboard"> {/* TODO */}
                 <Route index element={<Dashboard />} /> {/* TODO */}
               </Route>
+              <Route path="newdeal" element={<CreateDeal />} />
+              <Route path="addtrade" element={<AddTradeModal />} />
               <Route path="tradesheet" >
                 <Route index element={<CreateTradesheet />} /> {/* TODO */}
                 <Route path=":id" element={<EditTradesheet />} /> {/* TODO */}
