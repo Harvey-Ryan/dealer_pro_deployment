@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { vehicleStateModel } from './Tradesheet';
 import AddTradeModal from './AddTradeModal';
+import { Form, Button, Card, Col, Row } from 'react-bootstrap';
 
 const createDeal = () => {
     const navigate = useNavigate();
@@ -45,145 +46,172 @@ const createDeal = () => {
     };
 
     const [isAddingTrade, setIsAddingTrade] = useState(false);
-    
+
     const handleAddTradeClick = () => {
         setIsAddingTrade(true);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="age">Age:</label>
-                <input
-                    type="number"
-                    id="age"
-                    name="age"
-                    value={dealData.age}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="weOwe">We Owe:</label>
-                <input
-                    type="text"
-                    id="weOwe"
-                    name="weOwe"
-                    value={dealData.weOwe}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="driverFee">Driver Fee:</label>
-                <input
-                    type="number"
-                    id="driverFee"
-                    name="driverFee"
-                    value={dealData.driverFee}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="profitAfter">Profit After:</label>
-                <input
-                    type="number"
-                    id="profitAfter"
-                    name="profitAfter"
-                    value={dealData.profitAfter}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="holdBack">Hold Back:</label>
-                <input
-                    type="number"
-                    id="holdBack"
-                    name="holdBack"
-                    value={dealData.holdBack}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="financeReserve">Finance Reserve:</label>
-                <input
-                    type="number"
-                    id="financeReserve"
-                    name="financeReserve"
-                    value={dealData.financeReserve}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="warrantyGap">Warranty Gap:</label>
-                <input
-                    type="number"
-                    id="warrantyGap"
-                    name="warrantyGap"
-                    value={dealData.warrantyGap}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="idTheftEtch">ID Theft Etch:</label>
-                <input
-                    type="number"
-                    id="idTheftEtch"
-                    name="idTheftEtch"
-                    value={dealData.idTheftEtch}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="docFee">Doc Fee:</label>
-                <input
-                    type="number"
-                    id="docFee"
-                    name="docFee"
-                    value={dealData.docFee}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="commission">Commission:</label>
-                <input
-                    type="number"
-                    id="commission"
-                    name="commission"
-                    value={dealData.commission}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="purchaseType">Purchase Type:</label>
-                <input
-                    type="text"
-                    id="purchaseType"
-                    name="purchaseType"
-                    value={dealData.purchaseType}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="dealManager">Deal Manager:</label>
-                <input
-                    type="text"
-                    id="dealManager"
-                    name="dealManager"
-                    value={dealData.dealManager}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <button type="button" onClick={handleAddTradeClick}>
-                Add Trade
-            </button>
-            {/* Display trade input modal or form */}
-            {isAddingTrade && (
-                <AddTradeModal
-                    show={isAddingTrade}
-                    onHide={() => setIsAddingTrade(false)}
-                />
-            )}
-            <button type="submit">Submit</button>
-        </form>
+        <Card className="w-75">
+            <Card.Header>
+                <Card.Title as="h5">Add Deal</Card.Title>
+            </Card.Header>
+            <Card.Body>
+                <Form onSubmit={handleSubmit}>
+                <Row>
+                    <Col>
+                    <Form.Group controlId="age" className="mb-3">
+                        <Form.Label>Age:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="age"
+                            value={dealData.age}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="weOwe" className="mb-3">
+                        <Form.Label>We Owe:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="weOwe"
+                            value={dealData.weOwe}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="driverFee" className="mb-3">
+                        <Form.Label>Driver Fee:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="driverFee"
+                            value={dealData.driverFee}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="profitAfter" className="mb-3">
+                        <Form.Label>Profit After:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="profitAfter"
+                            value={dealData.profitAfter}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="holdBack" className="mb-3">
+                        <Form.Label>Hold Back:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="holdBack"
+                            value={dealData.holdBack}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="financeReserve" className="mb-3">
+                        <Form.Label>Finance Reserve:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="financeReserve"
+                            value={dealData.financeReserve}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="warrantyGap" className="mb-3">
+                        <Form.Label>Warranty Gap:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="warrantyGap"
+                            value={dealData.warrantyGap}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="idTheftEtch" className="mb-3">
+                        <Form.Label>ID Theft Etch:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="idTheftEtch"
+                            value={dealData.idTheftEtch}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="docFee" className="mb-3">
+                        <Form.Label>Doc Fee:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="docFee"
+                            value={dealData.docFee}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="commission" className="mb-3">
+                        <Form.Label>Commission:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="commission"
+                            value={dealData.commission}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="purchaseType" className="mb-3">
+                        <Form.Label>Purchase Type:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="purchaseType"
+                            value={dealData.purchaseType}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group controlId="dealManager" className="mb-3">
+                        <Form.Label>Deal Manager:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="dealManager"
+                            value={dealData.dealManager}
+                            onChange={handleFieldChange}
+                        />
+                    </Form.Group>
+                    </Col>
+                    </Row>
+                    <Row>
+                        <Col></Col>
+                        <Col>
+                            <Button variant="primary" type="button" onClick={handleAddTradeClick}>
+                                Add Trade
+                            </Button>
+                            {/* Display trade input modal or form */}
+                            {isAddingTrade && (
+                                <AddTradeModal show={isAddingTrade} onHide={() => setIsAddingTrade(false)} />
+                            )}
+                        </Col>
+                        <Col>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Col>
+                    </Row>
+                </Form>
+            </Card.Body>
+        </Card>
     );
 }
 

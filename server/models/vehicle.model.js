@@ -67,7 +67,7 @@ const optionsSchema = new mongoose.Schema({
 });
 
 // Custom validator function to check if at least one option is selected
-optionsSchema.path('').validate(function(value) {
+optionsSchema.path('twobyfour').validate(function(value) {
     const optionsFields = Object.keys(this.toObject());
     return optionsFields.some((field) => this[field] === true);
 }, 'Please select at least one option.');
