@@ -2,6 +2,76 @@
 
 const mongoose = require('mongoose');
 
+
+const optionsSchema = new mongoose.Schema({
+    twobyfour: {
+        type: Boolean,
+        default: false,
+    },
+    fourbyfour: {
+        type: Boolean,
+        default: false,
+    },
+    quadsts: {
+        type: Boolean,
+        default: false,
+    },
+    sixcyl: {
+        type: Boolean,
+        default: false,
+    },
+    fourcyl: {
+        type: Boolean,
+        default: false,
+    },
+    thirdrow: {
+        type: Boolean,
+        default: false,
+    },
+    rearair: {
+        type: Boolean,
+        default: false,
+    },
+    sunroof: {
+        type: Boolean,
+        default: false,
+    },
+    autotrans: {
+        type: Boolean,
+        default: false,
+    },
+    eightcyl: {
+        type: Boolean,
+        default: false,
+    },
+    manualtrans: {
+        type: Boolean,
+        default: false,
+    },
+    cdplayer: {
+        type: Boolean,
+        default: false,
+    },
+    leather: {
+        type: Boolean,
+        default: false,
+    },
+    painted: {
+        type: Boolean,
+        default: false,
+    },
+    salvagetitle: {
+        type: Boolean,
+        default: false,
+    },
+});
+
+// Custom validator function to check if at least one option is selected
+optionsSchema.path('').validate(function(value) {
+    const optionsFields = Object.keys(this.toObject());
+    return optionsFields.some((field) => this[field] === true);
+}, 'Please select at least one option.');
+
 const VehicleSchema = new mongoose.Schema({
     stocknumber: {
         type: String,
@@ -86,69 +156,8 @@ const VehicleSchema = new mongoose.Schema({
         },
         // required: [true, 'Please select applicable CarFax fields.'],
     },
-    options: {
-            twobyfour: {
-                type: Boolean,
-                default: false,
-            },
-            fourbyfour: {
-                type: Boolean,
-                default: false,
-            },
-            quadsts: {
-                type: Boolean,
-                default: false,
-            },
-            sixcyl: {
-                type: Boolean,
-                default: false,
-            },
-            fourcyl: {
-                type: Boolean,
-                default: false,
-            },
-            thirdrow: {
-                type: Boolean,
-                default: false,
-            },
-            rearair: {
-                type: Boolean,
-                default: false,
-            },
-            sunroof: {
-                type: Boolean,
-                default: false,
-            },
-            autotrans: {
-                type: Boolean,
-                default: false,
-            },
-            eightcyl: {
-                type: Boolean,
-                default: false,
-            },
-            manualtrans: {
-                type: Boolean,
-                default: false,
-            },
-            cdplayer: {
-                type: Boolean,
-                default: false,
-            },
-            leather: {
-                type: Boolean,
-                default: false,
-            },
-            painted: {
-                type: Boolean,
-                default: false,
-            },
-            salvagetitle: {
-                type: Boolean,
-                default: false,
-            },
-            // TEMPORARY FOR TESTING
-        },
+    options: optionsSchema,
+
         storename: {
                 type: String,
         },

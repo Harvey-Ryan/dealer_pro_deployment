@@ -57,6 +57,7 @@ const AddTradeModal = ({ show, onHide }) => {
         const { name, checked } = e.target;
         const [parent, child] = name.split('.');
 
+        // Update the state for the specific checkbox
         setTradeData((prevTradeData) => ({
             ...prevTradeData,
             [parent]: {
@@ -64,6 +65,22 @@ const AddTradeModal = ({ show, onHide }) => {
                 [child]: checked,
             },
         }));
+
+        // Validate the checkboxes
+        const isAnyCheckboxChecked = Object.values(tradeData[parent]).some((value) => value);
+        if (!isAnyCheckboxChecked) {
+            // At least one checkbox should be checked
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [parent]: 'Please select at least one option.',
+            }));
+        } else {
+            // Clear the error when at least one checkbox is checked
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [parent]: undefined,
+            }));
+        }
     };
 
     return (
@@ -73,38 +90,46 @@ const AddTradeModal = ({ show, onHide }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form noValidate validated={validated} onSubmit={handleTradeSubmit}>
-                    <Row>
-                        <Col>
-                            <Form.Check
-                                type="checkbox"
-                                label="Carfax"
-                                id="report"
-                                name="carfax.report"
-                                checked={tradeData.carfax.report}
-                                onChange={handleCheckboxChange}
-                            />
-                        </Col>
-                        <Col>
-                            <Form.Check
-                                type="checkbox"
-                                label="Damage Reported"
-                                id="damage"
-                                name="carfax.damage"
-                                checked={tradeData.carfax.damage}
-                                onChange={handleCheckboxChange}
-                            />
-                        </Col>
-                        <Col>
-                            <Form.Check
-                                type="checkbox"
-                                label="Branded Title"
-                                id="branded"
-                                name="carfax.branded"
-                                checked={tradeData.carfax.branded}
-                                onChange={handleCheckboxChange}
-                            />
-                        </Col>
-                    </ Row>
+                    <Form.Group controlId='carfax'>
+                        <Row>
+                            <Col>
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Carfax"
+                                    id="report"
+                                    name="carfax.report"
+                                    checked={tradeData.carfax.report}
+                                    onChange={handleCheckboxChange}
+                                    required
+                                    isInvalid={!tradeData.carfax.report && !tradeData.carfax.damage && !tradeData.carfax.branded}
+                                />
+                            </Col>
+                            <Col>
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Damage Reported"
+                                    id="damage"
+                                    name="carfax.damage"
+                                    checked={tradeData.carfax.damage}
+                                    onChange={handleCheckboxChange}
+                                    required
+                                    isInvalid={!tradeData.carfax.report && !tradeData.carfax.damage && !tradeData.carfax.branded}
+                                />
+                            </Col>
+                            <Col>
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Branded Title"
+                                    id="branded"
+                                    name="carfax.branded"
+                                    checked={tradeData.carfax.branded}
+                                    onChange={handleCheckboxChange}
+                                    required
+                                    isInvalid={!tradeData.carfax.report && !tradeData.carfax.damage && !tradeData.carfax.branded}
+                                />
+                            </Col>
+                        </Row>
+                    </Form.Group>
                     <Row>
                         <Col>
                             <Form.Group controlId="stocknumber">
@@ -208,8 +233,15 @@ const AddTradeModal = ({ show, onHide }) => {
                     </ Row>
                     <Row>
                         <Col>
-                            <Form.Group controlId="mechanical" isInvalid={!!errors.mechanical}>
+                            <Form.Group
+                                controlId="mechanical"
+                                isInvalid={!!errors.mechanical}
+                            // feedback="Please select condition."
+                            >
                                 <Form.Label>Mechanical:</Form.Label>
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.mechanical?.message}
+                                </Form.Control.Feedback>
                                 <Form.Check
                                     type="radio"
                                     label="Good"
@@ -219,6 +251,7 @@ const AddTradeModal = ({ show, onHide }) => {
                                     checked={tradeData.mechanical === 'Good'}
                                     onChange={handleInputChange}
                                     required
+                                    isInvalid={!!errors.mechanical}
                                 />
                                 <Form.Check
                                     type="radio"
@@ -229,6 +262,7 @@ const AddTradeModal = ({ show, onHide }) => {
                                     checked={tradeData.mechanical === 'Fair'}
                                     onChange={handleInputChange}
                                     required
+                                    isInvalid={!!errors.mechanical}
                                 />
                                 <Form.Check
                                     type="radio"
@@ -239,10 +273,8 @@ const AddTradeModal = ({ show, onHide }) => {
                                     checked={tradeData.mechanical === 'Poor'}
                                     onChange={handleInputChange}
                                     required
+                                    isInvalid={!!errors.mechanical}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.mechanical?.message}
-                                </Form.Control.Feedback>
                             </Form.Group>
                         </Col>
                         <Col>
@@ -256,6 +288,8 @@ const AddTradeModal = ({ show, onHide }) => {
                                     value="Good"
                                     checked={tradeData.appearance === 'Good'}
                                     onChange={handleInputChange}
+                                    required
+                                    isInvalid={!!errors.appearance}
                                 />
                                 <Form.Check
                                     type="radio"
@@ -265,6 +299,8 @@ const AddTradeModal = ({ show, onHide }) => {
                                     value="Fair"
                                     checked={tradeData.appearance === 'Fair'}
                                     onChange={handleInputChange}
+                                    required
+                                    isInvalid={!!errors.appearance}
                                 />
                                 <Form.Check
                                     type="radio"
@@ -274,6 +310,8 @@ const AddTradeModal = ({ show, onHide }) => {
                                     value="Poor"
                                     checked={tradeData.appearance === 'Poor'}
                                     onChange={handleInputChange}
+                                    required
+                                    isInvalid={!!errors.appearance}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.appearance?.message}
@@ -413,7 +451,7 @@ const AddTradeModal = ({ show, onHide }) => {
                         <Form.Group controlId="options" isInvalid={!!errors.options}>
                             <Form.Label>Options:</Form.Label>
                             <Form.Control.Feedback type="invalid">
-                                {errors.options?.message}
+                                {errors.options?.twobyfour.message}
                             </Form.Control.Feedback>
                             <Row>
                                 <Col>
