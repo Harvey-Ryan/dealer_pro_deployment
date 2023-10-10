@@ -8,7 +8,7 @@ const Dashboard = () => {
 
     return (
         <div>
-            <div className='w-80'>
+            <div>
                 <VehicleDataTable />
             </div>
             <div>
