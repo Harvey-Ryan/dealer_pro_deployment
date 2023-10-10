@@ -5,6 +5,7 @@ import DataTable from 'react-data-table-component';
 import './tableTheme.jsx';
 import CustomLoader from './CustomLoader';
 import format from 'date-fns/format';
+import { useData } from './context/DataContext.jsx';
 
 
 
@@ -12,6 +13,7 @@ const DealDataTable = ({ expandableRows }) => {
     const [deals, setDeals] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expandedRows, setExpandedRows] = useState([]);
+    const { state, dispatch } = useData();
 
     // Fetch Deal data
     useEffect(() => {
@@ -23,6 +25,7 @@ const DealDataTable = ({ expandableRows }) => {
                 const sortedData = response.data.sort((a, b) =>
                     new Date(b.createdAt) - new Date(a.createdAt)
                 );
+                dispatch({ type: 'UPDATE_DEALS', payload: sortedData });
                 setDeals(sortedData);
                 setLoading(false);
             } catch (error) {
@@ -31,7 +34,7 @@ const DealDataTable = ({ expandableRows }) => {
             }
         };
         fetchDealData();
-    }, []);
+    }, [dispatch]);
 
     // Fetch vehicle data by ID
     const fetchVehicleDataById = async (vehicleId) => {

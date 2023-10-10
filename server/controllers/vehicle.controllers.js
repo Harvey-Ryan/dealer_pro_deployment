@@ -1,11 +1,16 @@
 
 const Vehicle = require('../models/vehicle.model');
+const Deal = require('../models/deals.model');
 
 //Create a Vehicle
 const createVehicle = (req, res) => {
     Vehicle.create(req.body)
-        .then(newVehicle => { res.json(newVehicle) })
+        .then(newVehicle => {
+            console.log("VEHICLE.CONTROLLERS LINE 8");
+            res.json(newVehicle);
+        })
         .catch((err) => {
+            console.log("VEHICLE.CONTROLLERS LINE 12")
             res.status(400).json(err);
             console.log(err);
         });
@@ -14,8 +19,12 @@ const createVehicle = (req, res) => {
 //Retrieve all Vehicles from the database.
 const getVehicles = (req, res) => {
     Vehicle.find()
-        .then(vehicles => { res.json(vehicles); })
+        .then(vehicles => { 
+            console.log("VEHICLE.CONTROLLERS LINE 22")
+            res.json(vehicles); 
+        })
         .catch((err) => {
+            console.log("VEHICLE.CONTROLLERS LINE 26")
             res.status(400).json(err);
             console.log(err);
         });
@@ -26,13 +35,17 @@ const getVehicle = (req, res) => {
     Vehicle.findById(req.params.id)
         .then(vehicle => {
             if (!vehicle) {
+                console.log("VEHICLE.CONTROLLERS LINE 37")
                 res.status(404).json({
                     message: "Vehicle not found with id " + req.params.id
                 });
             }
+            console.log("VEHICLE.CONTROLLERS LINE 42")
             res.json(vehicle);
         })
         .catch((err) => {
+            console.log("VEHICLE.CONTROLLERS LINE 46")
+            console.log(req.params.id);
             res.status(400).json(err);
             console.log(err);
         });
@@ -121,6 +134,7 @@ const updateVehicle = (req, res) => {
         errors.options = "Options are required.";
     }
     if (Object.keys(errors).length > 0) {
+        console.log("VEHICLE.CONTROLLERS LINE 130")
         return res.status(400).json(errors);
     }
 
@@ -146,13 +160,16 @@ const updateVehicle = (req, res) => {
     }, { new: true })
         .then((vehicle) => {
             if (!vehicle) {
+                console.log("VEHICLE.CONTROLLERS LINE 161")
                 res.status(404).json({
                     message: "Vehicle not found with id " + id
                 });
             }
+            console.log("VEHICLE.CONTROLLERS LINE 166")
             res.json(vehicle);
         })
         .catch((err) => {
+            console.log("VEHICLE.CONTROLLERS LINE 170")
             res.status(400).json(err);
             console.log(err);
         });
@@ -161,31 +178,39 @@ const updateVehicle = (req, res) => {
 const deleteVehicle = async (req, res) => {
     const { id } = req.params;
 
-    // Find the vehicle to be deleted
-    const vehicle = await Vehicle.findById(id);
+    try {
+        // Find the vehicle to be deleted
+        const vehicle = await Vehicle.findById(id);
 
-    if (!vehicle) {
-        return res.status(404).json({
-            message: "Vehicle not found with id " + id
+        if (!vehicle) {
+            console.log("VEHICLE.CONTROLLERS LINE 184")
+            return res.status(404).json({
+                message: "Vehicle not found with id " + id
+            });
+        }
+
+        // Find deals that reference the deleted vehicle
+        const dealsToUpdate = await Deal.find({ tradeInVehicles: id });
+
+        // Remove the vehicle's ID from the tradeInVehicles array in each deal
+        const updatePromises = dealsToUpdate.map(async (deal) => {
+            deal.tradeInVehicles = deal.tradeInVehicles.filter(tradeId => tradeId.toString() !== id);
+            await deal.save();
         });
+
+        // Wait for all updates to complete
+        await Promise.all(updatePromises);
+
+        // Delete the vehicle
+        await vehicle.deleteOne();
+
+        console.log("VEHICLE.CONTROLLERS LINE 205")
+        return res.json({ message: "Vehicle deleted successfully!" });
+    } catch (error) {
+        console.log("VEHICLE.CONTROLLERS LINE 208")
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
     }
-
-    // Find deals that reference the deleted vehicle
-    const dealsToUpdate = await Deal.find({ tradeInVehicles: id });
-
-    // Remove the vehicle's ID from the tradeInVehicles array in each deal
-    const updatePromises = dealsToUpdate.map(async (deal) => {
-        deal.tradeInVehicles = deal.tradeInVehicles.filter(tradeId => tradeId.toString() !== id);
-        return deal.save();
-    });
-
-    // Wait for all updates to complete
-    await Promise.all(updatePromises);
-
-    // Delete the vehicle
-    await vehicle.remove();
-
-    return res.json({ message: "Vehicle deleted successfully!" });
 };
 
 module.exports = {

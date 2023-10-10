@@ -5,6 +5,7 @@ import DataTable from 'react-data-table-component';
 import './tableTheme.jsx';
 import CustomLoader from './CustomLoader';
 import format from 'date-fns/format';
+import { useData } from './context/DataContext.jsx';
 
 
 
@@ -12,6 +13,7 @@ const VehicleDataTable = ({ expandableRows }) => {
     const [vehicles, setVehicles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expandedRows, setExpandedRows] = useState([]);
+    const { state, dispatch } = useData();
 
     useEffect(() => {
         // GET VEHICLE DATA
@@ -22,6 +24,7 @@ const VehicleDataTable = ({ expandableRows }) => {
                 const sortedData = response.data.sort((a, b) =>
                     new Date(b.createdAt) - new Date(a.createdAt)
                 );
+                dispatch({ type: 'UPDATE_VEHICLES', payload: sortedData });
                 setVehicles(sortedData);
                 setLoading(false);
             } catch (error) {
@@ -30,7 +33,7 @@ const VehicleDataTable = ({ expandableRows }) => {
             }
         };
         fetchVehicleData();
-    }, []);
+    }, [dispatch]);
 
     // DELETE VEHICLE
     const handleDelete = async (id) => {
