@@ -5,13 +5,7 @@ const mongoose = require('mongoose');
 const dealSchema = new mongoose.Schema({
     newUsed: {
         type: String,
-<<<<<<< HEAD
         required: [true, 'New or Used required.'],
-=======
-        required: [true, 'New (N) or Used (U) required.'],
-        minLength: [1, 'Cannot be blank.'],
-        maxLength: [1, 'Please use N or U.'],
->>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
     },
     // TODO: CLEAN UP DESCRIPTION
     description: {
@@ -39,11 +33,7 @@ const dealSchema = new mongoose.Schema({
         minimum: [1, 'Age must be at least 1.'],
     },
     weOwe: {
-<<<<<<< HEAD
         type: Number,
-=======
-        type: String,
->>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
     },
     driverFee: {
         type: Number,
@@ -70,11 +60,6 @@ const dealSchema = new mongoose.Schema({
     },
     commission: {
         type: Number,
-<<<<<<< HEAD
-=======
-        required: [true, 'Commission is required.'],
-        minimum: [1, 'Commission must be at least 1.'],
->>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
     },
     purchaseType: {
         type: String,
@@ -89,7 +74,6 @@ const dealSchema = new mongoose.Schema({
     tradeInVehicles: [
         {
             type: mongoose.Schema.Types.ObjectId,
-<<<<<<< HEAD
             ref: [],
         },
     ],
@@ -109,14 +93,5 @@ dealSchema.path('tradeInVehicles').validate(function (value) {
 }, 'Trade-in vehicles must be valid ObjectIds.');
 
 const Deal = mongoose.model('Deals', dealSchema);
-=======
-            ref: 'Vehicle',
-        },
-    ],
-
-}, { timestamps: true });
-
-const Deal = mongoose.model('dealer_pro', dealSchema);
->>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
 
 module.exports = Deal;
