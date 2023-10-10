@@ -158,24 +158,34 @@ const updateVehicle = (req, res) => {
         });
 };
 
-//Delete a Vehicle with an id
-const deleteVehicle = (req, res) => {
+const deleteVehicle = async (req, res) => {
     const { id } = req.params;
 
-    Vehicle.findByIdAndRemove(id)
-        .then(vehicle => {
-            if (!vehicle) {
-                res.status(404).json({
-                    message: "Vehicle not found with id " + id
-                });
-            } else {
-                res.json({ message: "Vehicle deleted successfully!" });
-            }
-        })
-        .catch((err) => {
-            res.status(400).json(err);
-            console.log(err);
+    // Find the vehicle to be deleted
+    const vehicle = await Vehicle.findById(id);
+
+    if (!vehicle) {
+        return res.status(404).json({
+            message: "Vehicle not found with id " + id
         });
+    }
+
+    // Find deals that reference the deleted vehicle
+    const dealsToUpdate = await Deal.find({ tradeInVehicles: id });
+
+    // Remove the vehicle's ID from the tradeInVehicles array in each deal
+    const updatePromises = dealsToUpdate.map(async (deal) => {
+        deal.tradeInVehicles = deal.tradeInVehicles.filter(tradeId => tradeId.toString() !== id);
+        return deal.save();
+    });
+
+    // Wait for all updates to complete
+    await Promise.all(updatePromises);
+
+    // Delete the vehicle
+    await vehicle.remove();
+
+    return res.json({ message: "Vehicle deleted successfully!" });
 };
 
 module.exports = {
