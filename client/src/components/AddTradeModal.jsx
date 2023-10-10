@@ -9,29 +9,47 @@ import Feedback from 'react-bootstrap/Feedback';
 import axios from 'axios';
 import { vehicleStateModel } from './Tradesheet';
 
+<<<<<<< HEAD
 const AddTradeModal = ({ show, onHide, onSelectVehicle }) => {
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({});
     const [tradeData, setTradeData] = useState(vehicleStateModel);
     const [selectedTradeIns, setSelectedTradeIns] = useState([]);
 
+=======
+const AddTradeModal = ({ show, onHide }) => {
+    const [validated, setValidated] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [tradeData, setTradeData] = useState(vehicleStateModel);
+>>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
 
     const handleTradeSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
+<<<<<<< HEAD
         console.log(tradeData);
         console.log('Button Clicked');
     
+=======
+
+>>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
         try {
             const response = await axios.post('http://localhost:8000/api/vehicle', tradeData);
             console.log(response);
             console.log(tradeData);
+<<<<<<< HEAD
     
             if (response.status === 200) {
                 // Trade was successfully saved, you can handle it here
                 const newTrade = response.data;
                 setSelectedTradeIns([...selectedTradeIns, newTrade]); // Add the new trade to the selectedTradeIns array
                 onSelectVehicle(newTrade._id);
+=======
+
+            if (response.status === 200) {
+                // Trade was successfully saved, you can handle it here
+                setTradeData(response.data);
+>>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
                 setValidated(true);
                 onHide();
             }
@@ -46,10 +64,17 @@ const AddTradeModal = ({ show, onHide, onSelectVehicle }) => {
             } else {
                 console.error(error);
                 console.log(tradeData);
+<<<<<<< HEAD
                 // console.log(error.response.data.errors);
             }
         }
     };   
+=======
+                console.log(error.response.data.errors);
+            }
+        }
+    };
+>>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -456,9 +481,15 @@ const AddTradeModal = ({ show, onHide, onSelectVehicle }) => {
                     <Row>
                         <Form.Group controlId="options" isInvalid={!!errors.options}>
                             <Form.Label>Options:</Form.Label>
+<<<<<<< HEAD
                             {/* <Form.Control.Feedback type="invalid">
                                 {errors.options?.twobyfour.message}
                             </Form.Control.Feedback> */}
+=======
+                            <Form.Control.Feedback type="invalid">
+                                {errors.options?.twobyfour.message}
+                            </Form.Control.Feedback>
+>>>>>>> 81c86925e5b21a1a7994e3cc7de8d527a8a1f3ed
                             <Row>
                                 <Col>
                                     <Form.Check
