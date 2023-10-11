@@ -13,7 +13,11 @@ Completed:
 
   - Display All Vehicles: /dashboard
 
-  - Delete Tradesheets
+  - Delete Tradesheets and remove key from associated Deal
+
+  - Create Deals and Link Trades
+
+  - Delete Deals
 
   - DB hosted w/ Atlas
 
